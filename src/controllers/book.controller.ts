@@ -78,8 +78,53 @@ export const getBooks = async (
     }
     res.json(books)
   } catch (error) {
-
+    next(error)
   }
 }
 
 // Edit a book
+export const editBook = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // Get user edit input
+    const { title, author, genre, summary } = req.body
+    // Get owner of book from auth
+    const owner = await User.findById(req.user?.userId).exec()
+    // Get book to be edited
+    const book = await Book.findById(req.params.bookId).populate('owner').exec()
+
+    if (!owner) {
+      return res.status(500).json({ message: 'Something went wrong' })
+    } else if (!book) {
+      return res.status(404).json({ message: 'Book was not found' })
+    } else if (book.owner._id.toString() !== owner?._id.toString()) {
+      return res.status(403).json({ message: "You are not authorized to change this book's info" })
+    }
+
+    // If there are edits to be made edit them, if not keep them the same as before
+    book.title = title ? title : book.title
+    book.author = author ? author : book.author
+    book.genre = genre ? genre : book.genre
+    book.summary = summary ? summary : book.summary
+
+    // Save doc with updated edits
+    const savedBook = await book.save()
+    res.status(200).json({
+      message: 'Successfully edited the book',
+      book: {
+        id: savedBook._id,
+        title: savedBook.title,
+        author: savedBook.author,
+        genre: savedBook.genre,
+        summary: savedBook.summary
+      }
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+// Delete a book

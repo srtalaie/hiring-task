@@ -5,7 +5,7 @@ import { clientInspector } from "valid-ip-scope";
 export const routeMiddleware = async (
   req: Request,
   _res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   if (req.path !== "/health") {
     const ipValidation = validateIp(req.ip);

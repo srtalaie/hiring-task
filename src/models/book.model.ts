@@ -1,11 +1,11 @@
-import mongoose, { Document, Schema, Types } from 'mongoose';
+import mongoose, { Document, Schema, Types } from "mongoose";
 
 export interface IBook extends Document {
-  title: string,
-  author: string,
-  genre: string[],
-  summary: string,
-  owner: Types.ObjectId,
+  title: string;
+  author: string;
+  genre: string[];
+  summary: string;
+  owner: Types.ObjectId;
 }
 
 const bookSchema = new Schema<IBook>(
@@ -30,12 +30,12 @@ const bookSchema = new Schema<IBook>(
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: "User"
-    }
+      ref: "User",
+    },
   },
   {
     timestamps: true,
   },
 );
 
-export default mongoose.model<IBook>('Book', bookSchema); 
+export default mongoose.model<IBook>("Book", bookSchema);

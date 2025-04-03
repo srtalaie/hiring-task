@@ -6,10 +6,10 @@ const LOCALHOST_IPS: readonly string[] = [
   "127.0.0.1",
 ];
 
-type IpValidationResult = {
+interface IpValidationResult {
   isValid: boolean;
   reason?: string;
-};
+}
 
 export const validateIp = (ip: string | undefined): IpValidationResult => {
   if (!ip) return { isValid: false, reason: "IP is empty" };

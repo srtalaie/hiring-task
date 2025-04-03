@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+/* eslint-disable @typescript-eslint/no-namespace */
+import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
 
 declare global {
   namespace Express {
@@ -12,12 +13,12 @@ declare global {
 export const authenticate = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
-    const token = req.headers.authorization?.split(' ')[1];
+    const token = req.headers.authorization?.split(" ")[1];
     if (!token) {
-      return res.status(401).json({ message: 'Authentication required' });
+      return res.status(401).json({ message: "Authentication required" });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
@@ -26,6 +27,6 @@ export const authenticate = (
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).json({ message: 'Invalid or expired token' });
+    res.status(401).json({ message: "Invalid or expired token" });
   }
-}; 
+};

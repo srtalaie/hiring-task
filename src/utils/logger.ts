@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 class CustomLogger {
   log(...args: any) {
     console.log(...args);

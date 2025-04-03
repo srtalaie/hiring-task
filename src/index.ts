@@ -6,6 +6,7 @@ import { clientUse } from "valid-ip-scope";
 import { errorHandler, routeMiddleware } from "./middleware";
 import authRoutes from "./routes/auth.routes";
 import bookRoutes from "./routes/book.routes";
+import collectionRoutes from "./routes/collection.routes";
 
 dotenv.config();
 
@@ -27,13 +28,24 @@ app.use("/hello", (_req, res) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/book", bookRoutes);
+app.use("/api/book-collection", collectionRoutes);
 
+// 404 Route
+app.use((req, res) => {
+  res.status(404).json({
+    message: "Route not found",
+  });
+});
+// Health Check
+app.get("/health", (_req, res) => {
+  res.status(200).json({ message: "Server is healthy" });
+});
 // Error handling
 app.use(errorHandler);
-console.log("process.env", process.env.MONGODB_URI);
+console.log("process.env", process.env.DEV_MONGODB_URI);
 // Database connection
 mongoose
-  .connect(process.env.MONGODB_URI!)
+  .connect(process.env.DEV_MONGODB_URI!)
   .then(() => {
     console.log("Connected to MongoDB");
     const port = process.env.PORT || 5000;

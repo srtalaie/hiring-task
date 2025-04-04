@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { Credentials, Profile, User } from "../../../../types";
 import { getProfile, login, logout } from '../services/authService';
 
 const initialState = {
@@ -12,22 +12,11 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload
-    }
+    },
   }
 })
 
 export const { setUser } = userSlice.actions
-
-interface Credentials {
-  username: string;
-  password: string;
-}
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
 
 export const loginUser = (creds: Credentials) => {
   return async (dispatch: (action: { type: string; payload: User }) => void) => {
@@ -52,13 +41,6 @@ export const logoutUser = () => {
     }
   };
 };
-
-interface Profile {
-  id: string;
-  name: string;
-  email: string;
-  bookCollection: object[];
-}
 
 export const getUserProfile = () => {
   return async (dispatch: (action: { type: string; payload: Profile }) => void) => {

@@ -56,8 +56,8 @@ export const addABookToCollection = (bookId: string) => {
 export const removeABookFromCollection = (bookId: string) => {
   return async (dispatch: (action: { type: string; payload: string }) => void) => {
     try {
-      const book = await removeBookFromCollection(bookId)
-      dispatch(updateBookCollection({ book, actionType: 'remove' }))
+      await removeBookFromCollection(bookId)
+      dispatch(updateBookCollection({ bookId, actionType: 'remove' }))
     } catch (error) {
       console.error('Error removing book from collection:', error)
       throw error

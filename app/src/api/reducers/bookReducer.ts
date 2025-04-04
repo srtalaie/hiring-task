@@ -70,8 +70,8 @@ export const deleteABook = (bookId: string) => {
   return async (dispatch: (action: { type: string, payload: string }
   ) => void) => {
     try {
-      const deletedBook: Book = await deleteBook(bookId)
-      dispatch(removeBookFromState(deletedBook))
+      await deleteBook(bookId)
+      dispatch(removeBookFromState(bookId))
     } catch (error) {
       console.error('Error deleting a book:', error);
       throw error;

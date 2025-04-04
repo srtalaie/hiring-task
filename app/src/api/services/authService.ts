@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Credentials } from "../../../../types";
 const baseUrl = '/api/auth';
 
 const authHeader = () => {
@@ -11,7 +12,7 @@ const authHeader = () => {
   }
 }
 
-const login = async (creds: unknown) => {
+const login = async (creds: Credentials) => {
   const req = await axios.post(`${baseUrl}/login`, creds)
   window.localStorage.setItem('loggedInUser', JSON.stringify(req.data))
   return req.data

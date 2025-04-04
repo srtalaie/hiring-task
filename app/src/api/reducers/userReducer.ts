@@ -53,3 +53,5 @@ export const getUserProfile = () => {
     }
   };
 }
+
+export default userSlice.reducer

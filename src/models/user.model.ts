@@ -17,10 +17,24 @@ const userSchema = new Schema<IUser>(
       unique: true,
       trim: true,
       lowercase: true,
+      validate: {
+        validator(v: string) {
+          return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v)
+        },
+        message: 'Please enter a valid email',
+      }
     },
     password: {
       type: String,
       required: true,
+      minlength: [8, 'Password must be at least 8 characters long'],
+      validate: {
+        validator: function (v: string) {
+          // Custom validation logic (e.g., check for special characters)
+          return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(v);
+        },
+        message: 'Password must contain at least one letter, one number, and one special character'
+      }
     },
     name: {
       type: String,

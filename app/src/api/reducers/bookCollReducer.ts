@@ -64,3 +64,5 @@ export const removeABookFromCollection = (bookId: string) => {
     }
   }
 }
+
+export default bookCollectionSlice.reducer

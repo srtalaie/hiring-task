@@ -78,3 +78,5 @@ export const deleteABook = (bookId: string) => {
     }
   }
 }
+
+export default bookSlice.reducer

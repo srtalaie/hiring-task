@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
+import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model";
 
@@ -91,7 +91,7 @@ export const getProfile = async (
   next: NextFunction,
 ) => {
   try {
-    const user = await User.findById(req.user?.userId).select("-password");
+    const user = await User.findById(req.user?.userId).select("-password").populate('bookCollection').exec();
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }

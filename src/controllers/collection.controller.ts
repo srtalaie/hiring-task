@@ -52,7 +52,7 @@ export const removeBookFromCollection = async (
       req.user?.userId,
       { $pull: { bookCollection: bookId } },
       { new: true },
-    );
+    ).exec();
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });

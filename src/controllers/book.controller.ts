@@ -14,13 +14,20 @@ export const createBook = async (
     // Get owner of book from auth
     const owner = await User.findById(req.user?.userId).exec();
 
+    // Loop through genre array and make them lowercase
+    let genreArr: string[] = [];
+
+    if (genre) {
+      genreArr = genre.map((g: string) => g.toLowerCase());
+    }
+
     // Create a new book with user info
     const book = await Book.create({
-      title,
-      author,
-      genre,
-      summary,
-      owner,
+      title: title,
+      author: author,
+      genre: genreArr,
+      summary: summary,
+      owner: owner,
     });
 
     res.status(201).json({
@@ -96,10 +103,26 @@ export const editBook = async (
       User.findById(req.user?.userId).exec(),
     ]);
 
+    if (!book) {
+      return res.status(404).json({ message: "Book was not found" });
+    }
+
+    let genreArr: string[] = [];
+    if (genre) {
+      // Loop through genre array and make them lowercase
+      genreArr = genre.map((g: string) => g.toLowerCase());
+    }
+
+    let combinedGenres: string[] = [];
+    if (book.genre.length > 0 && genreArr.length > 0) {
+      // Combine the two arrays and remove the duplicates
+      console.log(book.genre, genreArr);
+
+      combinedGenres = [...new Set([...book.genre, ...genreArr])];
+    }
+
     if (!owner) {
       return res.status(500).json({ message: "Something went wrong" });
-    } else if (!book) {
-      return res.status(404).json({ message: "Book was not found" });
     } else if (book.owner._id.toString() !== owner?._id.toString()) {
       return res
         .status(403)
@@ -109,7 +132,7 @@ export const editBook = async (
     // If there are edits to be made edit them, if not keep them the same as before
     book.title = title ? title : book.title;
     book.author = author ? author : book.author;
-    book.genre = genre ? genre : book.genre;
+    book.genre = combinedGenres ? combinedGenres : book.genre;
     book.summary = summary ? summary : book.summary;
 
     // Save doc with updated edits

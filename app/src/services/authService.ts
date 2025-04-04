@@ -24,5 +24,18 @@ const logout = async () => {
   }
 }
 
-export { authHeader, login, logout };
+const getProfile = async () => {
+  try {
+    const config = {
+      headers: authHeader(),
+    }
+    const req = await axios.get(`${baseUrl}/profile`, config)
+    return req.data;
+  } catch (error) {
+    console.error('Error getting profile:', error);
+    throw error;
+  }
+}
+
+export { authHeader, getProfile, login, logout };
 

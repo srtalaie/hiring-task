@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useAppDispatch } from "../hooks/hooks";
@@ -31,9 +31,9 @@ function App() {
 
   return (
     <>
-      <Grid container>
+      <Container>
         {userCheck ? <NavBar navItems={loggedInNavItems} /> : <NavBar navItems={loggedOutNavItems} />}
-      </Grid>
+      </Container>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<RegistrationPage />} />

@@ -33,13 +33,18 @@ const RegisterUser = () => {
   }
 
   return (
-    <Grid container>
-      <Grid size={12} component="div">
+    <Grid container component="div" direction={"column"} justifyContent="center" alignItems="center" spacing={2}>
+      <h1>Register</h1>
+      <Grid>
         <TextField label="name" variant="outlined" value={name} onChange={(e) => setName(e.target.value)} />
-        <TextField label="email" variant="outlined" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <TextField label="password" type="password" variant="outlined" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <Button variant="contained" onClick={createUser}>Create User</Button>
       </Grid>
+      <Grid>
+        <TextField label="email" variant="outlined" value={email} onChange={(e) => setEmail(e.target.value)} />
+      </Grid>
+      <Grid>
+        <TextField label="password" type="password" variant="outlined" value={password} onChange={(e) => setPassword(e.target.value)} />
+      </Grid>
+      <Button variant="contained" onClick={createUser}>Create User</Button>
     </Grid>
   )
 }

@@ -5,6 +5,7 @@ import { useAppDispatch } from "../hooks/hooks";
 import { fetchBookCollection } from "./api/reducers/bookCollReducer";
 import { fetchBooks } from "./api/reducers/bookReducer";
 import NavBar from "./components/NavBars/NavBar";
+import CreateBookPage from "./pages/CreateBookPage";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
@@ -39,6 +40,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<RegistrationPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/createbook" element={<CreateBookPage />} />
       </Routes>
     </>
 

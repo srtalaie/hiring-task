@@ -10,7 +10,7 @@ export const createBook = async (
 ) => {
   try {
     // Get user input for book elements
-    const { title, author, genre, summary } = req.body;
+    const { title, author, genre, summary, isbn } = req.body;
     // Get owner of book from auth
     const owner = await User.findById(req.user?.userId).exec();
 
@@ -27,6 +27,7 @@ export const createBook = async (
       author: author,
       genre: genreArr,
       summary: summary,
+      isbn: isbn,
       owner: owner,
     });
 
@@ -37,6 +38,8 @@ export const createBook = async (
         title: book.title,
         author: book.author,
         genre: book.genre,
+        isbn: book.isbn,
+        owner: book.owner,
         summary: book.summary,
       },
     });
@@ -96,7 +99,7 @@ export const editBook = async (
 ) => {
   try {
     // Get user edit input
-    const { title, author, genre, summary } = req.body;
+    const { title, author, genre, summary, isbn } = req.body;
     // Get owner of book from auth and book from params
     const [book, owner] = await Promise.all([
       Book.findById(req.params.bookId).populate("owner").exec(),
@@ -134,6 +137,7 @@ export const editBook = async (
     book.author = author ? author : book.author;
     book.genre = combinedGenres ? combinedGenres : book.genre;
     book.summary = summary ? summary : book.summary;
+    book.isbn = isbn ? isbn : book.isbn;
 
     // Save doc with updated edits
     const savedBook = await book.save();
@@ -145,6 +149,8 @@ export const editBook = async (
         author: savedBook.author,
         genre: savedBook.genre,
         summary: savedBook.summary,
+        isbn: savedBook.isbn,
+        owner: savedBook.owner
       },
     });
   } catch (error) {

@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { Book } from '../../../../types';
+import { Book, BookCreate } from '../../../../types';
 import { authHeader } from './authService';
 const baseUrl = '/api/book';
 
-const createBook = async (book: Book) => {
+const createBook = async (book: BookCreate) => {
   try {
     const config = {
       headers: authHeader(),

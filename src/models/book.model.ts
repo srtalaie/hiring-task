@@ -5,6 +5,7 @@ export interface IBook extends Document {
   author: string;
   genre: string[];
   summary: string;
+  isbn: string;
   owner: Types.ObjectId;
 }
 
@@ -26,6 +27,12 @@ const bookSchema = new Schema<IBook>(
     summary: {
       type: String,
       required: true,
+      trim: true,
+    },
+    isbn: {
+      type: String,
+      required: true,
+      unique: true,
       trim: true,
     },
     owner: {

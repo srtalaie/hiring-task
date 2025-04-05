@@ -12,6 +12,16 @@ export interface RegisteringUser {
 
 export interface Book {
   id: string;
+  isbn: string;
+  title: string;
+  author: string;
+  genre: string[];
+  summary: string;
+  owner: User;
+}
+
+export interface BookCreate {
+  isbn: string;
   title: string;
   author: string;
   genre: string[];

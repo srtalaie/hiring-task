@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Book } from "../../../../types";
+import { Book, BookCreate } from "../../../../types";
 import { createBook, deleteBook, editBook, getBooks } from "../services/bookService";
 
 const initialState: { books: Book[] } = {
@@ -42,7 +42,7 @@ export const fetchBooks = () => {
   }
 }
 
-export const addABook = (book: Book) => {
+export const addABook = (book: BookCreate) => {
   return async (dispatch: (action: { type: string; payload: Book }) => void) => {
     try {
       const newBook: Book = await createBook(book);

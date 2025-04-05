@@ -4,6 +4,12 @@ export interface User {
   email: string;
 }
 
+export interface RegisteringUser {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export interface Book {
   id: string;
   title: string;
@@ -27,4 +33,9 @@ export interface Credentials {
 
 export interface BookCollectionState {
   bookCollection: Book[];
+}
+
+export interface NavItems {
+  text: string;
+  loc: string;
 }

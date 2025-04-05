@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Credentials } from "../../../../types";
+import { Credentials, RegisteringUser } from "../../../../types";
 const baseUrl = '/api/auth';
 
 const authHeader = () => {
@@ -10,6 +10,11 @@ const authHeader = () => {
   } else {
     return {}
   }
+}
+
+const register = async (user: RegisteringUser) => {
+  const req = await axios.post(`${baseUrl}/register`, user)
+  return req.data
 }
 
 const login = async (creds: Credentials) => {
@@ -38,5 +43,5 @@ const getProfile = async () => {
   }
 }
 
-export { authHeader, getProfile, login, logout };
+export { authHeader, getProfile, login, logout, register };
 

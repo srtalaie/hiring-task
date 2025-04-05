@@ -6,6 +6,7 @@ import { fetchBookCollection } from "./api/reducers/bookCollReducer";
 import { fetchBooks } from "./api/reducers/bookReducer";
 import NavBar from "./components/NavBars/NavBar";
 import Home from "./pages/Home";
+import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
 
 const loggedInNavItems = [{ text: 'Home', loc: '/' }, { text: 'Logout', loc: '/logout' }, { text: 'Create Book', loc: '/createbook' }];
@@ -37,6 +38,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<RegistrationPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </>
 
